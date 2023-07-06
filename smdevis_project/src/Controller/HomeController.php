@@ -21,8 +21,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Validator\Constraints\Regex;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Unique;
+use Symfony\Component\Form\FormError;
+
 
 
 
@@ -77,6 +80,8 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
                 'onchange' => 'removePlaceholderOption()',
             ],
         ])
+
+        
         ->add('email', TextType::class, [
             'label' => 'email :',
             'constraints' => [
@@ -162,8 +167,40 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
 
     if ($form->isSubmitted() && $form->isValid()) {
         $users = $form->getData();
-        $users->setEtat('active');
-        $users->setType('user');
+        $users->setEtat('Active');
+        $users->setType('User');
+
+        
+            // Check if the email already exists in the database
+        $existingUser = $entityManager->getRepository(Users::class)->findOneBy(['email' => $users->getEmail()]);
+
+        if ($existingUser) {
+            $form->get('email')->addError(new FormError('Cet email est déjà utilisé'));
+            return $this->render('home/index.html.twig', [
+                'form' => $form->createView(),
+                'controller_name' => 'HomeController',
+            ]);
+    }
+
+
+
+
+        $unique = false;
+        while (!$unique) {
+            $loginCode = mt_rand(10000, 99999);
+            
+            // Check if the login code already exists in the database
+            $existingUser = $entityManager->getRepository(Users::class)->findOneBy(['loginCode' => $loginCode]);
+            
+            if (!$existingUser) {
+                $unique = true;
+            }
+        }
+        
+        $users->setLoginCode($loginCode);
+        
+
+
         $entityManager->persist($users);
         $entityManager->flush();
 
