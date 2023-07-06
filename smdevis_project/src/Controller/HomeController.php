@@ -25,6 +25,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Unique;
 use Symfony\Component\Form\FormError;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Mime\Email as MimeEmail;
 
 
 
@@ -33,7 +35,7 @@ use Symfony\Component\Form\FormError;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-public function index(Request $request, EntityManagerInterface $entityManager): Response
+public function index(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator, \Symfony\Component\Mailer\MailerInterface $mailer): Response
 {
     $users = new Users();
 
@@ -126,6 +128,10 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
                 new NotBlank([
                     'message' => 'Veuillez écrire votre numéro de téléphone',
                 ]),
+                new Regex([
+                    'pattern' => '/^\d{8}$/',
+                    'message' => 'Veuillez saisir un numéro de téléphone valide (8 chiffres uniquement)',
+                ]),
             ],
             'invalid_message' => 'Veuillez saisir un numéro de téléphone valide (8 chiffres uniquement)',
             'attr' => [
@@ -203,6 +209,19 @@ public function index(Request $request, EntityManagerInterface $entityManager): 
 
         $entityManager->persist($users);
         $entityManager->flush();
+
+        // Add success flash message
+        $this->addFlash('success', $translator->trans('Votre code de connexion a été envoyé par e-mail.'));
+
+        // Send email to user
+        $email = (new MimeEmail())
+            ->from('smdevistun@gmail.com')
+            ->to($users->getEmail())
+            ->subject('SM Devis - Login Code')
+            ->html('<p>Bonjour '.$users->getNom().',</p><p>Voici votre code de connexion : '.$users->getLoginCode().'</p><p>Merci de l\'utiliser pour accéder à votre compte.</p>');
+        $mailer->send($email);
+
+
 
         return $this->redirectToRoute('app_home');
     }
