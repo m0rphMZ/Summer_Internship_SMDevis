@@ -2,32 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Users
+ * Partners
  *
- * @ORM\Table(name="users")
- * @ORM\Entity(repositoryClass = "App\Repository\UsersRepository")
+ * @ORM\Table(name="partners")
+ * @ORM\Entity
  */
-class Users
+class Partners
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="part_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $userId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255, nullable=false)
-     */
-    private $type;
+    private $partId;
 
     /**
      * @var string
@@ -37,9 +29,9 @@ class Users
     private $etat;
 
     /**
-     * @var int|null
+     * @var string|null
      *
-     * @ORM\Column(name="login_code", type="integer", nullable=true)
+     * @ORM\Column(name="login_code", type="string", length=255, nullable=true)
      */
     private $loginCode;
 
@@ -56,6 +48,13 @@ class Users
      * @ORM\Column(name="prenom", type="string", length=200, nullable=false)
      */
     private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom_soc", type="string", length=255, nullable=false)
+     */
+    private $nomSoc;
 
     /**
      * @var string
@@ -99,21 +98,9 @@ class Users
      */
     private $codepostal;
 
-    public function getUserId(): ?int
+    public function getPartId(): ?int
     {
-        return $this->userId;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
+        return $this->partId;
     }
 
     public function getEtat(): ?string
@@ -128,12 +115,12 @@ class Users
         return $this;
     }
 
-    public function getLoginCode(): ?int
+    public function getLoginCode(): ?string
     {
         return $this->loginCode;
     }
 
-    public function setLoginCode(?int $loginCode): static
+    public function setLoginCode(?string $loginCode): static
     {
         $this->loginCode = $loginCode;
 
@@ -160,6 +147,18 @@ class Users
     public function setPrenom(string $prenom): static
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNomSoc(): ?string
+    {
+        return $this->nomSoc;
+    }
+
+    public function setNomSoc(string $nomSoc): static
+    {
+        $this->nomSoc = $nomSoc;
 
         return $this;
     }

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Propositions;
+use App\Entity\Projets;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Propositions>
+ * @extends ServiceEntityRepository<Projets>
  *
- * @method Propositions|null find($id, $lockMode = null, $lockVersion = null)
- * @method Propositions|null findOneBy(array $criteria, array $orderBy = null)
- * @method Propositions[]    findAll()
- * @method Propositions[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Projets|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Projets|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Projets[]    findAll()
+ * @method Projets[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PropositionsRepository extends ServiceEntityRepository
+class ProjetsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Propositions::class);
+        parent::__construct($registry, Projets::class);
     }
 
-    public function save(Propositions $entity, bool $flush = false): void
+    public function save(Projets $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PropositionsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Propositions $entity, bool $flush = false): void
+    public function remove(Projets $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PropositionsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Propositions[] Returns an array of Propositions objects
+//     * @return Projets[] Returns an array of Projets objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PropositionsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Propositions
+//    public function findOneBySomeField($value): ?Projets
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

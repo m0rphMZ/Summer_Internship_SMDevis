@@ -5,9 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Users;
-use App\Repository\ReponsesRepository;
-use App\Repository\ReclamationRepository;
+use App\Entity\Partners;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -37,9 +35,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
 public function index(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator, \Symfony\Component\Mailer\MailerInterface $mailer): Response
 {
-    $users = new Users();
+    $partners = new partners();
 
-    $form = $this->createFormBuilder($users)
+    $form = $this->createFormBuilder($partners)
         ->add('nom', TextType::class, [
             'label' => 'nom:',
             'constraints' => [
@@ -64,6 +62,20 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
                 ]),
             ],
         ])
+
+        ->add('nom_soc', TextType::class, [
+            'label' => 'Nom de l\'entreprise:',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez écrire le nom de votre entreprise',
+                ]),
+                new Length([
+                    'min' => 2,
+                    'minMessage' => 'Le nom de votre entreprise doit être plus long que {{ limit }} caractères',
+                ]),
+            ],
+        ])
+
         ->add('civilite', ChoiceType::class, [
             'label' => 'Type de réclamation:',
             'placeholder' => 'Sélectionnez',
@@ -172,15 +184,14 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $users = $form->getData();
-        $users->setEtat('Active');
-        $users->setType('User');
+        $partners = $form->getData();
+        $partners->setEtat('Inactive');
 
         
             // Check if the email already exists in the database
-        $existingUser = $entityManager->getRepository(Users::class)->findOneBy(['email' => $users->getEmail()]);
+        $existingPartner = $entityManager->getRepository(Partners::class)->findOneBy(['email' => $partners->getEmail()]);
 
-        if ($existingUser) {
+        if ($existingPartner) {
             $form->get('email')->addError(new FormError('Cet email est déjà utilisé'));
             return $this->render('home/index.html.twig', [
                 'form' => $form->createView(),
@@ -191,35 +202,45 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
 
 
 
-        $unique = false;
-        while (!$unique) {
-            $loginCode = mt_rand(10000, 99999);
-            
-            // Check if the login code already exists in the database
-            $existingUser = $entityManager->getRepository(Users::class)->findOneBy(['loginCode' => $loginCode]);
-            
-            if (!$existingUser) {
-                $unique = true;
-            }
+    $unique = false;
+    while (!$unique) {
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+        $loginCode = '';
+        $codeLength = 8;
+    
+        // Generate a random login code
+        for ($i = 0; $i < $codeLength; $i++) {
+            $loginCode .= $characters[rand(0, strlen($characters) - 1)];
         }
-        
-        $users->setLoginCode($loginCode);
+    
+        // Check if the login code already exists in the database
+        $existingPartner = $entityManager->getRepository(Partners::class)->findOneBy(['loginCode' => $loginCode]);
+    
+        if (!$existingPartner) {
+            $unique = true;
+        }
+    }
+    
+    $partners->setLoginCode($loginCode);
+    
         
 
 
-        $entityManager->persist($users);
+        $entityManager->persist($partners);
         $entityManager->flush();
 
         // Add success flash message
         $this->addFlash('success', $translator->trans('Votre code de connexion a été envoyé par e-mail.'));
 
-        // Send email to user
-        $email = (new MimeEmail())
+
+        // Send email to partner
+            $email = (new MimeEmail())
             ->from('smdevistun@gmail.com')
-            ->to($users->getEmail())
-            ->subject('SM Devis - Login Code')
-            ->html('<p>Bonjour '.$users->getNom().',</p><p>Voici votre code de connexion : '.$users->getLoginCode().'</p><p>Merci de l\'utiliser pour accéder à votre compte.</p>');
-        $mailer->send($email);
+            ->to($partners->getEmail())
+            ->subject('SM Devis - Code de connexion')
+            ->html('<p>Bonjour '.$partners->getNom().',</p><p>Voici votre code de connexion : '.$partners->getLoginCode().'</p><p>Merci de l\'utiliser pour accéder à votre compte '.$partners->getNomSoc().'</p><p>Cordialement,</p><p>L\'équipe SM Devis</p>');
+            $mailer->send($email);
+
 
 
 
