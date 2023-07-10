@@ -12,7 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
 
 class LoginController extends AbstractController
@@ -74,11 +78,9 @@ public function login(Request $request, EntityManagerInterface $entityManager, A
                 return $this->redirectToRoute('app_login');
             }
 
-            // Perform the login action (e.g., store the user's ID in the session)
-            // You can use Symfony's built-in security features for authentication
 
             // Redirect to the desired page after successful login
-            return $this->redirectToRoute('app_form');
+            return $this->redirectToRoute('app_dashboard');
 
 
         } else {
