@@ -30,9 +30,9 @@ use Symfony\Component\Mime\Email as MimeEmail;
 
 
 
-class HomeController extends AbstractController
+class FormController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    #[Route('/form', name: 'app_form')]
 public function index(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator, \Symfony\Component\Mailer\MailerInterface $mailer): Response
 {
     $partners = new partners();
@@ -193,9 +193,9 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
 
         if ($existingPartner) {
             $form->get('email')->addError(new FormError('Cet email est déjà utilisé'));
-            return $this->render('home/index.html.twig', [
+            return $this->render('form/form.html.twig', [
                 'form' => $form->createView(),
-                'controller_name' => 'HomeController',
+                'controller_name' => 'FormController',
             ]);
     }
 
@@ -230,7 +230,8 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
         $entityManager->flush();
 
         // Add success flash message
-        $this->addFlash('success', $translator->trans('Votre code de connexion a été envoyé par e-mail.'));
+
+        $this->addFlash('success', 'Demande de partenariat enregistrée. Code de connexion envoyé après validation par un administrateur.');
 
 
         // Send email to partner
@@ -247,9 +248,9 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
         return $this->redirectToRoute('app_home');
     }
 
-    return $this->render('home/index.html.twig', [
+    return $this->render('form/form.html.twig', [
         'form' => $form->createView(),
-        'controller_name' => 'HomeController',
+        'controller_name' => 'FormController',
     ]);
 }
 }

@@ -12,11 +12,11 @@
 
         <span class="contact1-form-title">
 
-        {% if app.flashes('success')|length > 0 %}
-		<div class="alert alert-success">
-			{{ 'Demande de partenariat enregistrée. Code de connexion envoyé après validation par un administrateur.'|trans }}
-		</div>
-		{% endif %}
+		{% for flashMessage in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+        {% endfor %}
 
 
 			<h1>Étape 1 : Enregistrez-vous pour obtenir votre code de connexion et devenir partenaire avec SM DEVIS</h1>
