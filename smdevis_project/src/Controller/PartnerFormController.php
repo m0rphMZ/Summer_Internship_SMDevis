@@ -30,10 +30,10 @@ use Symfony\Component\Mime\Email as MimeEmail;
 
 
 
-class FormController extends AbstractController
+class PartnerFormController extends AbstractController
 {
     #[Route('/form', name: 'app_form')]
-public function index(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator, \Symfony\Component\Mailer\MailerInterface $mailer): Response
+public function index(Request $request, EntityManagerInterface $entityManager, \Symfony\Component\Mailer\MailerInterface $mailer): Response
 {
     $partners = new partners();
 
@@ -110,26 +110,26 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
 
         ->add('codepostal', IntegerType::class, [
             'label' => 'codepostal:',
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Veuillez écrire votre code postal',
-                ]),
-                new Regex([
-                    'pattern' => '/^[0-9]+$/',
-                    'message' => 'Veuillez saisir un code postal valide',
-                ]),
-                new Length([
-                    'min' => 5,
-                    'minMessage' => 'Votre code postal doit comporter au moins {{ limit }} caractères',
-                ]),
-            ],
-            'invalid_message' => 'Veuillez saisir un code postal valide (8 chiffres uniquement)',
-            'attr' => [
-                'min' => 10000000,
-                'max' => 99999999,
-                'oninput' => "this.value = this.value.replace(/[^0-9]/g, '').substring(0, 8);",
-            ],
-        ])
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez écrire votre code postal',
+                    ]),
+                    new Regex([
+                        'pattern' => '/^[0-9]+$/',
+                        'message' => 'Veuillez saisir un code postal valide',
+                    ]),
+                    new Length([
+                        'min' => 4,
+                        'minMessage' => 'Votre code postal doit comporter au moins {{ limit }} caractères',
+                    ]),
+                ],
+                'invalid_message' => 'Veuillez saisir un code postal valide (4 chiffres uniquement)',
+                'attr' => [
+                    'min' => 1000,
+                    'max' => 9999,
+                    'oninput' => "this.value = this.value.replace(/[^0-5]/g, '').substring(0, 4);",
+                ],
+            ])
 
 
 
@@ -186,6 +186,7 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
     if ($form->isSubmitted() && $form->isValid()) {
         $partners = $form->getData();
         $partners->setEtat('Inactive');
+        $partners->setRole('User');
 
         
             // Check if the email already exists in the database
@@ -193,9 +194,9 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
 
         if ($existingPartner) {
             $form->get('email')->addError(new FormError('Cet email est déjà utilisé'));
-            return $this->render('form/form.html.twig', [
+            return $this->render('partnerform/partnerform.html.twig', [
                 'form' => $form->createView(),
-                'controller_name' => 'FormController',
+                'controller_name' => 'PartnerFormController',
             ]);
     }
 
@@ -245,12 +246,13 @@ public function index(Request $request, EntityManagerInterface $entityManager, T
 
 
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_form');
     }
 
-    return $this->render('form/form.html.twig', [
+    return $this->render('partnerform/partnerform.html.twig', [
         'form' => $form->createView(),
-        'controller_name' => 'FormController',
+        'controller_name' => 'PartnerFormController',
     ]);
 }
+
 }

@@ -114,13 +114,6 @@ class Projets
     private $budgetProj;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="delai_realisation_proj", type="text", length=65535, nullable=false)
-     */
-    private $delaiRealisationProj;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_dem_proj", type="date", nullable=false)
@@ -284,18 +277,6 @@ class Projets
     public function setBudgetProj(int $budgetProj): static
     {
         $this->budgetProj = $budgetProj;
-
-        return $this;
-    }
-
-    public function getDelaiRealisationProj(): ?string
-    {
-        return $this->delaiRealisationProj;
-    }
-
-    public function setDelaiRealisationProj(string $delaiRealisationProj): static
-    {
-        $this->delaiRealisationProj = $delaiRealisationProj;
 
         return $this;
     }

@@ -29,6 +29,13 @@ class Partners
     private $etat;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=255, nullable=false, options={"default"="User"})
+     */
+    private $role = 'User';
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="login_code", type="string", length=255, nullable=true)
@@ -111,6 +118,18 @@ class Partners
     public function setEtat(string $etat): static
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): static
+    {
+        $this->role = $role;
 
         return $this;
     }

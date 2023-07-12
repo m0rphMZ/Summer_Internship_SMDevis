@@ -22,13 +22,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-public function login(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
+public function login(Request $request, EntityManagerInterface $entityManager): Response
 {
-    // Get the authentication error (if any)
-    $error = $authenticationUtils->getLastAuthenticationError();
 
-    // Get the last username entered by the user
-    $lastUsername = $authenticationUtils->getLastUsername();
 
     // Create the login form
     $form = $this->createFormBuilder()
@@ -76,10 +72,18 @@ public function login(Request $request, EntityManagerInterface $entityManager, A
 
                 // Redirect to the login page
                 return $this->redirectToRoute('app_login');
+            }elseif ($partner->getEtat() === 'Permanent'){
+
+                $session = $request->getSession();
+                $session->set('admin', $partner);
+                return $this->redirectToRoute('app_dashboard');
+
             }
 
 
             // Redirect to the desired page after successful login
+            $session = $request->getSession();
+            $session->set('partner', $partner);
             return $this->redirectToRoute('app_dashboard');
 
 
@@ -94,9 +98,26 @@ public function login(Request $request, EntityManagerInterface $entityManager, A
 
     return $this->render('login/login.html.twig', [
         'form' => $form->createView(),
-        'last_username' => $lastUsername,
-        'error' => $error,
     ]);
 }
+
+
+
+
+#[Route('/logout', name: 'app_logout')]
+public function logout(Request $request): Response
+{
+
+    $request->getSession()->remove('partner');
+    $request->getSession()->remove('admin');
+
+    return $this->redirectToRoute('app_login');
+
+}
+
+
+
+
+
 
 }

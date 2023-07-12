@@ -1,0 +1,179 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    
+
+	<div class="contact1">
+
+
+		<div class="container-contact1">
+
+        <span class="contact1-form-title">
+
+		{% for flashMessage in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+        {% endfor %}
+
+
+			<h1>Étape 1 : Remplissez ce formulaire avec vos informations personnelles pour faciliter le contact des prestataires de services potentiels.</h1>
+        </span>
+
+        
+         <span class="contact1-form-text">
+				<p>Pour faciliter la prise de contact des prestataires de services potentiels, veuillez remplir ce formulaire avec vos informations personnelles :</p>
+        </span>
+        
+     
+        
+
+			<div class="contact1-pic js-tilt" data-tilt>
+				<img src="images/smdevis-logo.jpg" alt="IMG">
+			</div>
+
+            
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+			<form class="contact1-form validate-form">
+				<span class="contact1-form-title">
+					Vos identifiants
+				</span>
+
+				<div class="wrap-input1 validate-input">
+                    {{ form_widget(form.nom_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Nom'}}) }}
+                    <span class="shadow-input1"> </span>
+                    <div class="valid-input">{{ form_errors(form.nom_dem) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+                    {{ form_widget(form.prenom_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Prenom'}}) }}   
+                    <span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.prenom_dem) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.civilite_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Civilité'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.civilite_dem) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.telephone_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Numéro de Téléphone'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.telephone_dem) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.adresse_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Adresse'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.adresse_dem) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.ville_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Ville'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.ville_dem) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.codepostale_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre Code Postal'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.codepostale_dem) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.email_dem, {'attr': {'class': 'input1', 'placeholder': 'Votre E-mail'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.email_dem) }}</div>
+				</div>
+		</div>
+	</div>
+
+
+
+
+    <div class="contact1">
+
+
+		<div class="container-contact1">
+
+        <span class="contact1-form-title">
+
+
+			<h1>Étape 2 : Décrivez votre projet et trouvez les professionnels qualifiés</h1>
+        </span>
+        
+         <span class="contact1-form-text">
+				<p>Indiquez les détails de votre projet et trouvez les professionnels qualifiés capables de répondre à vos besoins spécifiques :</p>
+        </span>
+        
+     
+        
+
+			<div class="contact1-pic js-tilt" data-tilt>
+				<img src="images/Construction.png" alt="IMG">
+			</div>
+
+			<div class="contact1-form validate-form">
+				<span class="contact1-form-title">
+					Vos identifiants
+				</span>
+
+				<div class="wrap-input1 validate-input">
+                    {{ form_widget(form.titreprojet, {'attr': {'class': 'input1', 'placeholder': 'Le Titre de votre Projet'}}) }}
+                    <span class="shadow-input1"> </span>
+                    <div class="valid-input">{{ form_errors(form.titreprojet) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+                    {{ form_widget(form.description_proj, {'attr': {'class': 'input1', 'placeholder': 'Veuillez Décrire Votre Projet et ce que Vous Essayez D\'accomplir'}}) }}   
+                    <span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.description_proj) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.objet_dem_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est l\'objet de cette demande'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.objet_dem_proj) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.situation_proj, {'attr': {'class': 'input1', 'placeholder': 'Quelle est votre situation ? (ex : Propriétaire ...)'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.situation_proj) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.budget_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est votre budget (en dinars)'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.budget_proj) }}</div>
+				</div>
+
+				<div class="container-contact1-form-btn">
+					<button class="contact1-form-btn" type="submit">
+						<span>
+							Envoyez votre demande de projet
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+					</button>
+				</div>
+                {{ form_end(form) }}
+			</form>
+		</div>
+	</div>
+
+
+    <script type="text/javascript">
+    function removePlaceholderOption() {
+        var selectElement = document.getElementById("form_civilite_dem");
+        if (selectElement.options[0].value === "") {
+            selectElement.removeChild(selectElement.options[0]);
+        }
+    }
+</script>
+    
+
+	{% endblock %}
