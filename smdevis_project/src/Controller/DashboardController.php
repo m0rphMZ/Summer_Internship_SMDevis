@@ -9,6 +9,7 @@ use App\Entity\Partners;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mime\Email as MimeEmail;
 
 class DashboardController extends AbstractController
 {
@@ -60,7 +61,7 @@ class DashboardController extends AbstractController
 
 
     #[Route('/dashboard/partners/{id}/active', name: 'app_dashboard_partners_active')]
-    public function partnerActive(EntityManagerInterface $entityManager, Request $request, int $id): Response
+    public function partnerActive(EntityManagerInterface $entityManager, Request $request, int $id, \Symfony\Component\Mailer\MailerInterface $mailer): Response
     {
         $repository = $entityManager->getRepository(Partners::class);
         
@@ -73,6 +74,15 @@ class DashboardController extends AbstractController
         }
 
         $partner->setEtat('Active');
+
+        // Send email to partner
+        $email = (new MimeEmail())
+        ->from('smdevistun@gmail.com')
+        ->to($partner->getEmail())
+        ->subject('SM Devis - Code de connexion')
+        ->html('<p>Bonjour '.$partner->getNom().',</p><p>Votre partenariat avec SM Devis a été accepté. Voici votre code de connexion : '.$partner->getLoginCode().'</p><p>Merci de l\'utiliser pour accéder à votre compte '.$partner->getNomSoc().'.</p><p>Cordialement,</p><p>L\'équipe SM Devis</p>');
+        $mailer->send($email);
+
         $entityManager->flush();
         
     

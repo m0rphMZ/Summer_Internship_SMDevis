@@ -240,7 +240,7 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
             ->from('smdevistun@gmail.com')
             ->to($partners->getEmail())
             ->subject('SM Devis - Code de connexion')
-            ->html('<p>Bonjour '.$partners->getNom().',</p><p>Voici votre code de connexion : '.$partners->getLoginCode().'</p><p>Merci de l\'utiliser pour accéder à votre compte '.$partners->getNomSoc().'</p><p>Cordialement,</p><p>L\'équipe SM Devis</p>');
+            ->html('<p>Bonjour '.$partners->getNom().',</p><p>Votre partenariat avec SM Devis a été enregistré et sera examiné par un administrateur. Vous recevrez votre code de connexion une fois qu\'il sera approuvé.</p><p>Merci de votre patience et de votre intérêt pour SM Devis.</p><p>Cordialement,</p><p>L\'équipe SM Devis</p>');
             $mailer->send($email);
 
 
