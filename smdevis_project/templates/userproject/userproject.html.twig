@@ -129,27 +129,51 @@
 				</div>
 
                 <div class="wrap-input1 validate-input">
-                    {{ form_widget(form.description_proj, {'attr': {'class': 'input1', 'placeholder': 'Veuillez Décrire Votre Projet et ce que Vous Essayez D\'accomplir'}}) }}   
+                    {{ form_widget(form.situation_proj, {'attr': {'class': 'input1', 'placeholder': 'Veuillez Décrire Votre situation'}}) }}   
                     <span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.description_proj) }}</div>
+                    <div class="valid-input">{{ form_errors(form.situation_proj) }}</div>
 				</div>
 
                 <div class="wrap-input1 validate-input">
-					{{ form_widget(form.objet_dem_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est l\'objet de cette demande'}}) }}
+					{{ form_widget(form.type_bien, {'attr': {'class': 'input1', 'placeholder': 'Veuillez choisir un type de bien'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.type_bien) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.budget_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est votre budget (en dinars)'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.budget_proj) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.etat_bien, {'attr': {'class': 'input1', 'placeholder': 'Quel est l\'état de votre bien'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.etat_bien) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.delai_realisation, {'attr': {'class': 'input1', 'placeholder': 'quel est le délai de réalisation de vos travaux'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.delai_realisation) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.periode_rappel, {'attr': {'class': 'input1', 'placeholder': 'Quand pouvons-nous vous appeler ?'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.periode_rappel) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.objet_dem_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est l\'objet de votre demande ?'}}) }}
 					<span class="shadow-input1"></span>
                     <div class="valid-input">{{ form_errors(form.objet_dem_proj) }}</div>
 				</div>
 
 				<div class="wrap-input1 validate-input">
-					{{ form_widget(form.situation_proj, {'attr': {'class': 'input1', 'placeholder': 'Quelle est votre situation ? (ex : Propriétaire ...)'}}) }}
+					{{ form_widget(form.description_proj, {'attr': {'class': 'input1', 'placeholder': 'Veuillez décrire le projet que vous essayez de réaliser et les services dont vous avez besoin'}}) }}
 					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.situation_proj) }}</div>
-				</div>
-
-                <div class="wrap-input1 validate-input">
-					{{ form_widget(form.budget_proj, {'attr': {'class': 'input1', 'placeholder': 'Quel est votre budget (en dinars)'}}) }}
-					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.budget_proj) }}</div>
+                    <div class="valid-input">{{ form_errors(form.description_proj) }}</div>
 				</div>
 
 				<div class="container-contact1-form-btn">
@@ -167,8 +191,8 @@
 
 
     <script type="text/javascript">
-    function removePlaceholderOption() {
-        var selectElement = document.getElementById("form_civilite_dem");
+    function removePlaceholderOption(selectId) {
+        var selectElement = document.getElementById(selectId);
         if (selectElement.options[0].value === "") {
             selectElement.removeChild(selectElement.options[0]);
         }

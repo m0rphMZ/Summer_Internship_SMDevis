@@ -59,45 +59,57 @@
 				</div>
 
                 <div class="wrap-input1 validate-input">
-					{{ form_widget(form.civilite, {'attr': {'class': 'input1', 'placeholder': 'Votre Civilité'}}) }}
-					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.civilite) }}</div>
-				</div>
-
-				<div class="wrap-input1 validate-input">
 					{{ form_widget(form.nom_soc, {'attr': {'class': 'input1', 'placeholder': 'Nom de votre entreprise'}}) }}
 					<span class="shadow-input1"></span>
                     <div class="valid-input">{{ form_errors(form.nom_soc) }}</div>
 				</div>
 
-                <div class="wrap-input1 validate-input">
-					{{ form_widget(form.email, {'attr': {'class': 'input1', 'placeholder': 'Email'}}) }}
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.act_entreprise, {'attr': {'class': 'input1', 'placeholder': 'Activité de votre entreprise'}}) }}
 					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.email) }}</div>
+                    <div class="valid-input">{{ form_errors(form.act_entreprise) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.mat_fisc, {'attr': {'class': 'input1', 'placeholder': 'Matricule fiscale'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.mat_fisc) }}</div>
 				</div>
 
 				<div class="wrap-input1 validate-input">
-					{{ form_widget(form.telephone, {'attr': {'class': 'input1', 'placeholder': 'Numéro de téléphone'}}) }}
-					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.telephone) }}</div>
-				</div>
-
-                <div class="wrap-input1 validate-input">
 					{{ form_widget(form.adresse, {'attr': {'class': 'input1', 'placeholder': 'Votre adresse'}}) }}
 					<span class="shadow-input1"></span>
                     <div class="valid-input">{{ form_errors(form.adresse) }}</div>
 				</div>
 
                 <div class="wrap-input1 validate-input">
-					{{ form_widget(form.ville, {'attr': {'class': 'input1', 'placeholder': 'Votre Ville'}}) }}
-					<span class="shadow-input1"></span>
-                    <div class="valid-input">{{ form_errors(form.ville) }}</div>
-				</div>
-
-                <div class="wrap-input1 validate-input">
 					{{ form_widget(form.codepostal, {'attr': {'class': 'input1', 'placeholder': 'Votre code postal'}}) }}
 					<span class="shadow-input1"></span>
                     <div class="valid-input">{{ form_errors(form.codepostal) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.tel_gsm, {'attr': {'class': 'input1', 'placeholder': 'Votre numéro de téléphone GSM'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.tel_gsm) }}</div>
+				</div>
+
+                <div class="wrap-input1 validate-input">
+					{{ form_widget(form.tel_fix, {'attr': {'class': 'input1', 'placeholder': 'Votre numéro de téléphone FIX'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.tel_fix) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.email, {'attr': {'class': 'input1', 'placeholder': 'Votre E-mail'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.email) }}</div>
+				</div>
+
+				<div class="wrap-input1 validate-input">
+					{{ form_widget(form.subscription, {'attr': {'class': 'input1', 'placeholder': 'La durée de votre abonnement'}}) }}
+					<span class="shadow-input1"></span>
+                    <div class="valid-input">{{ form_errors(form.subscription) }}</div>
 				</div>
 
 				<div class="container-contact1-form-btn">
@@ -116,7 +128,7 @@
 
     <script type="text/javascript">
     function removePlaceholderOption() {
-        var selectElement = document.getElementById("form_civilite");
+        var selectElement = document.getElementById("form_subscription");
         if (selectElement.options[0].value === "") {
             selectElement.removeChild(selectElement.options[0]);
         }

@@ -65,7 +65,7 @@ class UserProjectController extends AbstractController
 
             ->add('civilite_dem', ChoiceType::class, [
                 'label' => 'Type de réclamation:',
-                'placeholder' => 'Sélectionnez',
+                'placeholder' => 'Sélectionner une civilité',
                 'choices' => [
                     'M.' => 'Monsieur',
                     'Mme.' => 'Madame',
@@ -78,7 +78,7 @@ class UserProjectController extends AbstractController
                 ],
                 'invalid_message' => 'Veuillez sélectionner une civilité',
                 'attr' => [
-                    'onchange' => 'removePlaceholderOption()',
+                    'onchange' => 'removePlaceholderOption("form_civilite_dem")',
                 ],
             ])
 
@@ -175,42 +175,42 @@ class UserProjectController extends AbstractController
                 ],
             ])
 
-            ->add('description_proj', TextareaType::class, [
-                'label' => 'Description:',
+            ->add('situation_proj', ChoiceType::class, [
+                'label' => 'Votre situation:',
+                'placeholder' => 'Sélectionner Votre situation',
+                'choices' => [
+                    'Propriétaire' => 'proprietaire',
+                    'Locataire' => 'locataire',
+                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez écrire la description de votre projet',
+                        'message' => 'Veuillez sélectionner Votre situation',
                     ]),
-                    new Length([
-                        'min' => 10,
-                        'minMessage' => 'la description doit comporter au moins {{ limit }} caractères',
-                    ]),
+                ],
+                'invalid_message' => 'Veuillez sélectionner Votre situation',
+                'attr' => [
+                    'onchange' => 'removePlaceholderOption("form_situation_proj")',
                 ],
             ])
 
-            ->add('objet_dem_proj', TextType::class, [
-                'label' => 'Objet de la demande:',
+            ->add('type_bien', ChoiceType::class, [
+                'label' => 'Type de bien:',
+                'placeholder' => 'Sélectionner Votre Type',
+                'choices' => [
+                    'Appartement' => 'appartement',
+                    'Maison' => 'maison',
+                    'Studio' => 'studio',
+                    'Immeuble' => 'immeuble',
+                    'Villa' => 'villa',
+                ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez écrire l\'objet de la demande:',
-                    ]),
-                    new Length([
-                        'min' => 5,
-                        'minMessage' => 'l\'objet de la demande doit comporter au moins {{ limit }} caractères',
+                        'message' => 'Veuillez sélectionner Votre Type',
                     ]),
                 ],
-            ])
-
-            ->add('situation_proj', TextType::class, [
-                'label' => 'Situation :',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez écrire si vous êtes le propriétaire ou non:',
-                    ]),
-                    new Length([
-                        'min' => 5,
-                        'minMessage' => 'la Situation doit comporter au moins {{ limit }} caractères',
-                    ]),
+                'invalid_message' => 'Veuillez sélectionner Votre Type',
+                'attr' => [
+                    'onchange' => 'removePlaceholderOption("form_type_bien")',
                 ],
             ])
 
@@ -227,10 +227,92 @@ class UserProjectController extends AbstractController
                     ]),
                 ],
             ])
-            
 
-            
-            
+            ->add('etat_bien', ChoiceType::class, [
+                'label' => 'Etat de bien:',
+                'placeholder' => 'Sélectionner Votre Etat',
+                'choices' => [
+                    'Neuf' => 'neuf',
+                    'Ancien' => 'ancien',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner Votre Etat',
+                    ]),
+                ],
+                'invalid_message' => 'Veuillez sélectionner Votre Etat',
+                'attr' => [
+                    'onchange' => 'removePlaceholderOption("form_etat_bien")',
+                ],
+            ])
+
+            ->add('delai_realisation', ChoiceType::class, [
+                'label' => 'Délai de réalisation de vos travaux:',
+                'placeholder' => 'Sélectionner Votre délai de réalisation de vos travaux',
+                'choices' => [
+                    'Pas de date fixe' => 'no_date',
+                    'immédiatement' => 'immediat',
+                    'Dans 1 mois' => '1mois',
+                    'Entre 3 et 6 mois' => '3-6mois',
+                    '+12 mois' => '+12mois',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner Votre délai de réalisation de vos travaux',
+                    ]),
+                ],
+                'invalid_message' => 'Veuillez sélectionner Votre délai de réalisation de vos travaux',
+                'attr' => [
+                    'onchange' => 'removePlaceholderOption("form_delai_realisation")',
+                ],
+            ])
+
+            ->add('periode_rappel', ChoiceType::class, [
+                'label' => 'Période de rappel:',
+                'placeholder' => 'Sélectionner Votre période de rappel',
+                'choices' => [
+                    'Matin' => 'matin',
+                    'Après midi' => 'apres_midi',
+                    'Soir' => 'soir',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner Votre période de rappel',
+                    ]),
+                ],
+                'invalid_message' => 'Veuillez sélectionner Votre période de rappel',
+                'attr' => [
+                    'onchange' => 'removePlaceholderOption("form_periode_rappel")',
+                ],
+            ])
+
+            ->add('objet_dem_proj', TextType::class, [
+                'label' => 'Objet de la demande:',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez écrire l\'objet de la demande:',
+                    ]),
+                    new Length([
+                        'min' => 5,
+                        'minMessage' => 'l\'objet de la demande doit comporter au moins {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+
+            ->add('description_proj', TextareaType::class, [
+                'label' => 'Description:',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez écrire la description de votre projet',
+                    ]),
+                    new Length([
+                        'min' => 10,
+                        'minMessage' => 'la description doit comporter au moins {{ limit }} caractères',
+                    ]),
+                ],
+            ])
+
+
             ->getForm();
     
         $form->handleRequest($request);

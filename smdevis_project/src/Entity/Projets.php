@@ -88,6 +88,27 @@ class Projets
     /**
      * @var string
      *
+     * @ORM\Column(name="situation_proj", type="string", length=255, nullable=false)
+     */
+    private $situationProj;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_bien", type="string", length=255, nullable=false)
+     */
+    private $typeBien;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="etat_bien", type="string", length=255, nullable=false)
+     */
+    private $etatBien;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="description_proj", type="text", length=65535, nullable=false)
      */
     private $descriptionProj;
@@ -100,18 +121,25 @@ class Projets
     private $objetDemProj;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="situation_proj", type="string", length=255, nullable=false)
-     */
-    private $situationProj;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="budget_proj", type="integer", nullable=false)
      */
     private $budgetProj;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="delai_realisation", type="string", length=255, nullable=false)
+     */
+    private $delaiRealisation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="periode_rappel", type="string", length=255, nullable=false)
+     */
+    private $periodeRappel;
 
     /**
      * @var \DateTime
@@ -233,6 +261,42 @@ class Projets
         return $this;
     }
 
+    public function getSituationProj(): ?string
+    {
+        return $this->situationProj;
+    }
+
+    public function setSituationProj(string $situationProj): static
+    {
+        $this->situationProj = $situationProj;
+
+        return $this;
+    }
+
+    public function getTypeBien(): ?string
+    {
+        return $this->typeBien;
+    }
+
+    public function setTypeBien(string $typeBien): static
+    {
+        $this->typeBien = $typeBien;
+
+        return $this;
+    }
+
+    public function getEtatBien(): ?string
+    {
+        return $this->etatBien;
+    }
+
+    public function setEtatBien(string $etatBien): static
+    {
+        $this->etatBien = $etatBien;
+
+        return $this;
+    }
+
     public function getDescriptionProj(): ?string
     {
         return $this->descriptionProj;
@@ -257,18 +321,6 @@ class Projets
         return $this;
     }
 
-    public function getSituationProj(): ?string
-    {
-        return $this->situationProj;
-    }
-
-    public function setSituationProj(string $situationProj): static
-    {
-        $this->situationProj = $situationProj;
-
-        return $this;
-    }
-
     public function getBudgetProj(): ?int
     {
         return $this->budgetProj;
@@ -277,6 +329,30 @@ class Projets
     public function setBudgetProj(int $budgetProj): static
     {
         $this->budgetProj = $budgetProj;
+
+        return $this;
+    }
+
+    public function getDelaiRealisation(): ?string
+    {
+        return $this->delaiRealisation;
+    }
+
+    public function setDelaiRealisation(string $delaiRealisation): static
+    {
+        $this->delaiRealisation = $delaiRealisation;
+
+        return $this;
+    }
+
+    public function getPeriodeRappel(): ?string
+    {
+        return $this->periodeRappel;
+    }
+
+    public function setPeriodeRappel(string $periodeRappel): static
+    {
+        $this->periodeRappel = $periodeRappel;
 
         return $this;
     }

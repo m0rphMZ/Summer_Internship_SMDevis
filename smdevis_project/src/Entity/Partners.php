@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,9 +67,16 @@ class Partners
     /**
      * @var string
      *
-     * @ORM\Column(name="civilite", type="string", length=200, nullable=false)
+     * @ORM\Column(name="act_entreprise", type="string", length=255, nullable=false)
      */
-    private $civilite;
+    private $actEntreprise;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mat_fisc", type="string", length=255, nullable=false)
+     */
+    private $matFisc;
 
     /**
      * @var string
@@ -80,9 +88,16 @@ class Partners
     /**
      * @var int
      *
-     * @ORM\Column(name="telephone", type="integer", nullable=false)
+     * @ORM\Column(name="tel_gsm", type="integer", nullable=false)
      */
-    private $telephone;
+    private $telGsm;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tel_fix", type="integer", nullable=false)
+     */
+    private $telFix;
 
     /**
      * @var string
@@ -92,18 +107,25 @@ class Partners
     private $adresse;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="string", length=200, nullable=false)
-     */
-    private $ville;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="codepostal", type="integer", nullable=false)
      */
     private $codepostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subscription", type="string", length=255, nullable=false)
+     */
+    private $subscription;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_part_sub", type="date", nullable=false)
+     */
+    private $datePartSub;
 
     public function getPartId(): ?int
     {
@@ -182,14 +204,26 @@ class Partners
         return $this;
     }
 
-    public function getCivilite(): ?string
+    public function getActEntreprise(): ?string
     {
-        return $this->civilite;
+        return $this->actEntreprise;
     }
 
-    public function setCivilite(string $civilite): static
+    public function setActEntreprise(string $actEntreprise): static
     {
-        $this->civilite = $civilite;
+        $this->actEntreprise = $actEntreprise;
+
+        return $this;
+    }
+
+    public function getMatFisc(): ?string
+    {
+        return $this->matFisc;
+    }
+
+    public function setMatFisc(string $matFisc): static
+    {
+        $this->matFisc = $matFisc;
 
         return $this;
     }
@@ -206,14 +240,26 @@ class Partners
         return $this;
     }
 
-    public function getTelephone(): ?int
+    public function getTelGsm(): ?int
     {
-        return $this->telephone;
+        return $this->telGsm;
     }
 
-    public function setTelephone(int $telephone): static
+    public function setTelGsm(int $telGsm): static
     {
-        $this->telephone = $telephone;
+        $this->telGsm = $telGsm;
+
+        return $this;
+    }
+
+    public function getTelFix(): ?int
+    {
+        return $this->telFix;
+    }
+
+    public function setTelFix(int $telFix): static
+    {
+        $this->telFix = $telFix;
 
         return $this;
     }
@@ -230,18 +276,6 @@ class Partners
         return $this;
     }
 
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): static
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
     public function getCodepostal(): ?int
     {
         return $this->codepostal;
@@ -250,6 +284,30 @@ class Partners
     public function setCodepostal(int $codepostal): static
     {
         $this->codepostal = $codepostal;
+
+        return $this;
+    }
+
+    public function getSubscription(): ?string
+    {
+        return $this->subscription;
+    }
+
+    public function setSubscription(string $subscription): static
+    {
+        $this->subscription = $subscription;
+
+        return $this;
+    }
+
+    public function getDatePartSub(): ?\DateTimeInterface
+    {
+        return $this->datePartSub;
+    }
+
+    public function setDatePartSub(\DateTimeInterface $datePartSub): static
+    {
+        $this->datePartSub = $datePartSub;
 
         return $this;
     }

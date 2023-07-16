@@ -76,34 +76,41 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
             ],
         ])
 
-        ->add('civilite', ChoiceType::class, [
-            'label' => 'Type de réclamation:',
-            'placeholder' => 'Sélectionnez',
-            'choices' => [
-                'M.' => 'Monsieur',
-                'Mme.' => 'Madame',
-                'Mlle.' => 'Mademoiselle',
-            ],
+        ->add('act_entreprise', TextType::class, [
+            'label' => 'Activité de l\'entreprise:',
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Veuillez sélectionner une civilité',
+                    'message' => 'Veuillez écrire l\'activité de votre entreprise',
                 ]),
-            ],
-            'invalid_message' => 'Veuillez sélectionner une civilité',
-            'attr' => [
-                'onchange' => 'removePlaceholderOption()',
+                new Length([
+                    'min' => 2,
+                    'minMessage' => 'l\'activité de votre entreprise doit être plus long que {{ limit }} caractères',
+                ]),
             ],
         ])
 
-        
-        ->add('email', TextType::class, [
-            'label' => 'email :',
+        ->add('mat_fisc', TextType::class, [
+            'label' => 'Matricule fiscale :',
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Veuillez écrire votre adresse email',
+                    'message' => 'Veuillez écrire la Matricule fiscale de votre entreprise',
                 ]),
-                new Email([
-                    'message' => 'Veuillez saisir une adresse email valide',
+                new Length([
+                    'min' => 2,
+                    'minMessage' => 'la Matricule fiscale de votre entreprise doit être plus long que {{ limit }} caractères',
+                ]),
+            ],
+        ])
+
+        ->add('adresse', TextType::class, [
+            'label' => 'adresse:',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez écrire votre adresse',
+                ]),
+                new Length([
+                    'min' => 5,
+                    'minMessage' => 'Votre adresse doit comporter au moins {{ limit }} caractères',
                 ]),
             ],
         ])
@@ -132,13 +139,26 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
             ])
 
 
-
-
-        ->add('telephone', IntegerType::class, [
-            'label' => 'telephone:',
+        
+        ->add('email', TextType::class, [
+            'label' => 'email :',
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Veuillez écrire votre numéro de téléphone',
+                    'message' => 'Veuillez écrire votre adresse email',
+                ]),
+                new Email([
+                    'message' => 'Veuillez saisir une adresse email valide',
+                ]),
+            ],
+        ])
+
+        
+
+        ->add('tel_fix', IntegerType::class, [
+            'label' => 'tel_fix:',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez écrire votre numéro de téléphone Fix',
                 ]),
                 new Regex([
                     'pattern' => '/^\d{8}$/',
@@ -153,31 +173,46 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
             ],
         ])
 
+        ->add('tel_gsm', IntegerType::class, [
+            'label' => 'tel_gsm:',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez écrire votre numéro de téléphone GSM',
+                ]),
+                new Regex([
+                    'pattern' => '/^\d{8}$/',
+                    'message' => 'Veuillez saisir un numéro de téléphone valide (8 chiffres uniquement)',
+                ]),
+            ],
+            'invalid_message' => 'Veuillez saisir un numéro de téléphone valide (8 chiffres uniquement)',
+            'attr' => [
+                'min' => 10000000,
+                'max' => 99999999,
+                'oninput' => "this.value = this.value.replace(/[^0-9]/g, '').substring(0, 8);",
+            ],
+        ])
+
+
+        ->add('subscription', ChoiceType::class, [
+            'label' => 'subscription:',
+            'choices' => [
+                '1 Mois' => '1',
+                '3 Mois' => '3',
+                '6 Mois' => '6',
+                '12 Mois' => '12',
+            ],
+            'placeholder' => 'Veuillez choisir une option de souscription',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez choisir une option de souscription',
+                ]),
+            ],
+            'attr' => [
+                'onchange' => 'removePlaceholderOption(this);', // Call the JavaScript function when the select changes
+            ],
+        ])
         
-        ->add('adresse', TextType::class, [
-            'label' => 'adresse:',
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Veuillez écrire votre adresse',
-                ]),
-                new Length([
-                    'min' => 5,
-                    'minMessage' => 'Votre adresse doit comporter au moins {{ limit }} caractères',
-                ]),
-            ],
-        ])
-        ->add('ville', TextType::class, [
-            'label' => 'ville:',
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Veuillez écrire votre ville',
-                ]),
-                new Length([
-                    'min' => 2,
-                    'minMessage' => 'Votre ville doit comporter au moins {{ limit }} caractères',
-                ]),
-            ],
-        ])
+
         
         ->getForm();
 
@@ -187,6 +222,7 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
         $partners = $form->getData();
         $partners->setEtat('Inactive');
         $partners->setRole('User');
+        $partners->setDatePartSub(new \DateTime());
 
         
             // Check if the email already exists in the database
