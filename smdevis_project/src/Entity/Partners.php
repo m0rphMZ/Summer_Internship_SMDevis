@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\PartnersRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Partners
  *
  * @ORM\Table(name="partners")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass = "App\Repository\PartnersRepository")
  */
 class Partners
 {

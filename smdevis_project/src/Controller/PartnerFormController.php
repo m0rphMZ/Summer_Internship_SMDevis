@@ -30,12 +30,58 @@ use Symfony\Component\Mime\Email as MimeEmail;
 
 
 
+
+
 class PartnerFormController extends AbstractController
 {
     #[Route('/form', name: 'app_form')]
 public function index(Request $request, EntityManagerInterface $entityManager, \Symfony\Component\Mailer\MailerInterface $mailer): Response
 {
     $partners = new partners();
+
+    $choices = [
+        'Alarme (installateur)',
+        'Carreleur',
+        'Charpentier',
+        'Chauffagiste',
+        'Climatisation (installateur)',
+        'Constructeur de maison',
+        'Courtier',
+        'Couvreur',
+        'Cuisiniste',
+        'Décorateur',
+        'Dératiseur',
+        'Diagnostiqueur Immobilier',
+        'Domotique',
+        'Electricien',
+        'Entreprise générale de bâtiment',
+        'Escaliéteur',
+        'Fenêtres (installateur)',
+        'Forgeron / Ferronnier',
+        'Géomètre',
+        'Isolation',
+        'Jardinier',
+        'Maçon',
+        'Maître d\'oeuvre',
+        'Menuisier',
+        'Miroitier / Vitrier',
+        'Moquettiste',
+        'Parquet (poseur)',
+        'Paysagiste',
+        'Peintre',
+        'Piscines (installateur)',
+        'Plaquiste',
+        'Plâtrier',
+        'Plombier',
+        'Portes,fenêtres (installateur de)',
+        'Ravaleur de façade',
+        'Salle de bains (installateur)',
+        'Serrurier',
+        'Store (installateur)',
+        'Terrassier',
+        'Vérandas (installateur)',
+    ];
+    
 
     $form = $this->createFormBuilder($partners)
         ->add('nom', TextType::class, [
@@ -76,15 +122,15 @@ public function index(Request $request, EntityManagerInterface $entityManager, \
             ],
         ])
 
-        ->add('act_entreprise', TextType::class, [
+        
+        
+        ->add('act_entreprise', ChoiceType::class, [
             'label' => 'Activité de l\'entreprise:',
+            'choices' => array_combine($choices, $choices),
+            'placeholder' => 'Choisir une activité',
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Veuillez écrire l\'activité de votre entreprise',
-                ]),
-                new Length([
-                    'min' => 2,
-                    'minMessage' => 'l\'activité de votre entreprise doit être plus long que {{ limit }} caractères',
+                    'message' => 'Veuillez sélectionner l\'activité principale de votre entreprise',
                 ]),
             ],
         ])

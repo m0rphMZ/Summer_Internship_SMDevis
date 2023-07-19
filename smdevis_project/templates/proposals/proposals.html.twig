@@ -1,0 +1,241 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+<!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Projet soumis par les clients</h1>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Nombre total de projets</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalProjects }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Budget total de tous les projets</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalBudget }}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tasks Card Example
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="progress progress-sm mr-2">
+                                                        <div class="progress-bar bg-info" role="progressbar"
+                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                            aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example 
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Pending Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         -->
+                    </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <!--<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
+
+                        </div>
+                        {% if proposals is empty %}
+                            <p>Vide</p>
+                        {% else %}
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                
+                                    <thead>
+                                        <tr>
+                                            <th>Actions</th>
+                                            <th>Référence du projet</th>
+                                            <th>Titre du projet</th>
+                                            <th>Situation du projet</th>
+                                            <th>Type de bien</th>
+                                            <th>Etat du bien</th>
+                                            <th>Description du projet</th>
+                                            <th>Objet de projet</th>
+                                            <th>Budget du projet (En dinars)</th>
+                                            <th>Délai de réalisation</th>
+                                            <th>Date de création du projet</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                    
+                                        <tr>
+                                            <th>Actions</th>
+                                            <th>Référence du projet</th>
+                                            <th>Titre du projet</th>
+                                            <th>Situation du projet</th>
+                                            <th>Type de bien</th>
+                                            <th>Etat du bien</th>
+                                            <th>Description du projet</th>
+                                            <th>Objet de projet</th>
+                                            <th>Budget du projet (En dinars)</th>
+                                            <th>Délai de réalisation</th>
+                                            <th>Date de création du projet</th>
+                                        </tr>
+                                    </tfoot>
+                                    {% for proposal in proposals %}
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                            <a href="#" data-toggle="modal" data-target="#DetailModal" class="btn btn-info btn-icon-split">
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-info-circle"></i>
+                                            </span>
+                                            <span class="text">Plus de détails</span>
+                                            </a>
+
+
+                                            </th>
+                                            <td>{{ proposal.refProj }}</td>
+                                            <td>{{ proposal.titreprojet }}</td>
+                                            <td>{{ proposal.situationProj }}</td>
+                                            <td>{{ proposal.typeBien }}</td>
+                                            <td>{{ proposal.etatBien }}</td>
+                                            <td>{{ proposal.descriptionProj }}</td>
+                                            <td>{{ proposal.objetDemProj }}</td>
+                                            <td>{{ proposal.budgetProj }}</td>
+                                            <td>{{ proposal.delaiRealisation }}</td>
+                                            <td>{{ proposal.dateDemProj|date('Y-m-d') }}</td>
+                                        </tr>
+                                    </tbody>
+
+
+                                    <!-- Modal Active -->
+                                    <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Coordonnées du client</h5> 
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                
+                                               <div class="modal-body">
+                                                    Nom du client : {{ proposal.nomDem }}<br>
+                                                    Prenom du client : {{ proposal.prenomDem }}<br>
+                                                    Civilité du client : {{ proposal.civiliteDem }}<br>
+                                                    Numéro de téléphone du client : {{ proposal.telephoneDem }}<br>
+                                                    Adresse client : {{ proposal.adresseDem }}<br>
+                                                    Ville du client : {{ proposal.villeDem }}<br>
+                                                    Code postal du client : {{ proposal.codepostaleDem }}<br>
+                                                    E-mail du client : {{ proposal.emailDem }}<br>
+                                                </div>
+
+                                                
+
+
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                    {% endfor %}
+                                </table>
+                            
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                    
+
+
+
+                
+
+{% endblock %}

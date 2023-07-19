@@ -6,10 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Partners;
+use App\Entity\Projets;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Email as MimeEmail;
+use Doctrine\ORM\QueryBuilder;
 
 class DashboardController extends AbstractController
 {
@@ -38,6 +40,41 @@ class DashboardController extends AbstractController
             'partners' => $pagination,
         ]);
     }
+
+    
+
+    #[Route('/dashboard/proposals', name: 'app_dashboard_proposals')]
+    public function proposals(EntityManagerInterface $entityManager, PaginatorInterface $paginator, Request $request): Response
+    {
+        $repository = $entityManager->getRepository(Projets::class);
+        
+        // Get the total number of projects
+        $totalProjects = $repository->createQueryBuilder('p')
+            ->select('COUNT(p.refProj)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        
+        // Get the sum of the budget_proj
+        $totalBudget = $repository->createQueryBuilder('p')
+            ->select('SUM(p.budgetProj)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        
+        $proposals = $repository->findAll();
+        
+        $pagination = $paginator->paginate(
+            $proposals,
+            $request->query->getInt('page', 1),
+            10 // number of items per page
+        );
+    
+        return $this->render('proposals/proposals.html.twig', [
+            'proposals' => $pagination,
+            'totalProjects' => $totalProjects,
+            'totalBudget' => $totalBudget,
+        ]);
+    }
+    
 
     #[Route('/dashboard/partners/{id}/inactive', name: 'app_dashboard_partners_inactive')]
     public function partnerInactive(EntityManagerInterface $entityManager, Request $request, int $id): Response
