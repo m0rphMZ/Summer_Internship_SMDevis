@@ -1,0 +1,164 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+                <div class="container-fluid">
+
+                    <h1 class="h3 mb-2 text-gray-800">Les partenaires</h1>
+                    <p class="mb-4">Ce tableau comprend tous les partenaires passés et présents.</p>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+
+                            <!--<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>-->
+
+                        </div>
+                        {% if partners is empty %}
+                            <p>Vide</p>
+                        {% else %}
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                
+                                    <thead>
+                                        <tr>
+                                            <th>Actions</th>
+                                            <th>ID partenaire</th>
+                                            <th>État</th>
+                                            <th>E-mail</th>
+                                            <th>Code de connexion</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Nom Société</th>
+                                            <th>Activité de la Société</th>
+                                            <th>Matricule fiscale</th>
+                                            <th>Numéro de téléphone GSM</th>
+                                            <th>Numéro de téléphone FIX</th>
+                                            <th>Adresse</th>
+                                            <th>Code Postal</th>
+                                            <th>Durée de l'abonnement</th>
+                                            <th>Date de début de l'abonnement</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                    
+                                        <tr>
+                                            <th>Actions</th>
+                                            <th>ID partenaire</th>
+                                            <th>État</th>
+                                            <th>E-mail</th>
+                                            <th>Code de connexion</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Nom Société</th>
+                                            <th>Activité de la Société</th>
+                                            <th>Matricule fiscale</th>
+                                            <th>Numéro de téléphone GSM</th>
+                                            <th>Numéro de téléphone FIX</th>
+                                            <th>Adresse</th>
+                                            <th>Code Postal</th>
+                                            <th>Durée de l'abonnement</th>
+                                            <th>Date de début de l'abonnement</th>
+                                        </tr>
+                                    </tfoot>
+                                    {% for partner in partners %}
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                            <a href="#" data-toggle="modal" data-target="#AccepterModal" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-flag"></i>
+                                            </span>
+                                            <span class="text">Activer</span>
+                                            </a>
+
+                                            <div class="my-2"></div>
+
+                                            <a href="#" data-toggle="modal" data-target="#RefuserModal" class="btn btn-danger btn-icon-split">
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                            </span>
+                                            <span class="text">Désactiver</span>
+                                            </a>
+
+                                            </th>
+                                            <td>{{ partner.partId }}</td>
+                                            <td class="m-0 font-weight-bold {% if partner.etat == 'Active' %}text-success{% else %}text-danger{% endif %}">{{ partner.etat }}</td>
+                                            <td>{{ partner.email }}</td>
+                                            <td class="m-0 font-weight-bold text-info">{{ partner.loginCode }}</td>
+                                            <td>{{ partner.nom }}</td>
+                                            <td>{{ partner.prenom }}</td>
+                                            <td>{{ partner.nomSoc }}</td>
+                                            <td>{{ partner.actEntreprise }}</td>
+                                            <td>{{ partner.matFisc }}</td>
+                                            <td>{{ partner.telGsm }}</td>
+                                            <td>{{ partner.telFix }}</td>
+                                            <td>{{ partner.adresse }}</td>
+                                            <td>{{ partner.codepostal }}</td>
+                                            <td>{{ partner.subscription }} moi(s)</td>
+                                            <td>{{ partner.datePartSub|date('Y-m-d') }}</td>
+                                        </tr>
+                                    </tbody>
+
+
+
+
+                                    <!-- Modal Inactive -->
+                                    <div class="modal fade" id="RefuserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Définir l'état de ce partenaire a "Inactif" ?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                                                    <a class="btn btn-primary" href="{{ path('app_dashboard_partners_inactive', { 'id': partner.partId }) }}">Confirmer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Active -->
+                                    <div class="modal fade" id="AccepterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Définir l'état de ce partenaire a "Actif" ?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                                                    <a class="btn btn-primary" href="{{ path('app_dashboard_partners_active', { 'id': partner.partId }) }}">Confirmer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
+                                    {% endfor %}
+                                </table>
+                            
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+
+                
+
+{% endblock %}
