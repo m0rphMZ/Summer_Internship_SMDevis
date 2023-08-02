@@ -41,6 +41,8 @@ This section outlines the usage of various features within the SMDevis project.
 2. Provide project details, including the required service and contact information.
 3. Submit the form.
 
+#### New Project Screenshots
+
 ![Submit Project Form](https://user-images.githubusercontent.com/123656241/257874715-c073d3a1-8828-49e0-bc96-7c1f0ee77301.png)
 
 ![Submit Project Form](https://user-images.githubusercontent.com/123656241/257874773-45283d5a-d51c-43c9-b2fc-09e6abbf0bb7.png)
