@@ -41,6 +41,8 @@ This section outlines the usage of various features within the SMDevis project.
 2. Provide project details, including the required service and contact information.
 3. Submit the form.
 
+![Submit Project Form](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/c073d3a1-8828-49e0-bc96-7c1f0ee77301.png)
+
 ### Becoming a Potential Partner
 
 1. Potential partners can apply by visiting `http://localhost:8000/form`.
@@ -54,6 +56,20 @@ This section outlines the usage of various features within the SMDevis project.
 2. Review partner applications and approve/deny them.
 3. Monitor and manage the platform's quality.
 4. Partners with approved subscriptions can log in to the dashboard to view project submissions.
+
+#### Dashboard Screenshots
+
+![Dashboard 1](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/08aedce2-5c4e-44fb-905f-ee5bf21a7d62.png)
+
+![Dashboard 2](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/de74826b-fb5d-4c15-ac11-8b088e5f5774.png)
+
+![Dashboard 3](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/329acd8d-bd60-4109-8cbe-2c5f8b0eae51.png)
+
+#### Partner Application Form
+
+![Partner Application 1](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/187389a0-b330-4f65-ade5-222d9476f71f.png)
+
+![Partner Application 2](https://github.com/m0rphMZ/Summer_Internship_SMDevis/raw/main/assets/123656241/e7c115b5-df22-4bf6-9e74-8b5efb1888fd.png)
 
 ## Contributing
 
