@@ -1,6 +1,6 @@
-# SM DEVIS Summer Internship Project
+# Summer Internship Project: SMDevis
 
-Welcome to the SM DEVIS Summer Internship Project repository. This project aims to create a platform that connects individuals seeking various house renovation and service-related projects with potential partners who offer those services.
+Welcome to the Summer Internship Project repository for SMDevis. This project is designed to connect individuals in need of house renovation and various service-related projects with potential partners who offer those services.
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ Welcome to the SM DEVIS Summer Internship Project repository. This project aims 
 
 ## Getting Started
 
-To get started using the SM DEVIS project, follow the steps below:
+To begin using the SMDevis project, follow the steps below:
 
 ### Prerequisites
 
@@ -25,27 +25,27 @@ To get started using the SM DEVIS project, follow the steps below:
 
 ### Installation
 
-1. Clone this repository: `git clone https://github.com/m0rphMZ/SMDEVIS_SummerInternship.git`
-2. Navigate to the project directory: `cd SMDEVIS_SummerInternship`
+1. Clone this repository: `git clone https://github.com/m0rphMZ/Summer_Internship_SMDevis.git`
+2. Navigate to the project directory: `cd Summer_Internship_SMDevis`
 3. Install dependencies: `composer install`
 4. Configure your database settings in `config/packages/doctrine.yaml`.
 5. Create the database schema: `php bin/console doctrine:schema:create`
 
 ## Usage
 
-This section explains how to use different aspects of the SM DEVIS project.
+This section outlines the usage of various features within the SMDevis project.
 
 ### Submitting a Project
 
 1. Open your browser and navigate to `http://localhost:8000/newprojet`.
-2. Fill out the project details, including the type of service needed and contact information.
+2. Provide project details, including the required service and contact information.
 3. Submit the form.
 
 ### Becoming a Potential Partner
 
 1. Potential partners can apply by visiting `http://localhost:8000/form`.
-2. Fill out the partner application form.
-3. Wait for admin approval.
+2. Complete the partner application form.
+3. Await admin approval.
 4. Once approved, you will receive access to the dashboard.
 
 ### Admin Dashboard
@@ -57,12 +57,12 @@ This section explains how to use different aspects of the SM DEVIS project.
 
 ## Contributing
 
-We welcome contributions to the SM DEVIS project. To contribute:
+We welcome contributions to the SMDevis project. To contribute:
 
 1. Fork the repository on GitHub.
 2. Clone your forked repository to your local machine.
 3. Create a new branch: `git checkout -b feature/your-feature-name`.
-4. Make your changes and commit them.
+4. Implement your changes and commit them.
 5. Push the changes to your fork: `git push origin feature/your-feature-name`.
 6. Create a pull request on the main repository.
 
