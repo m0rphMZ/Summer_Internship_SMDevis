@@ -9,7 +9,7 @@ Welcome to the SM DEVIS Summer Internship Project repository. This project aims 
   - [Installation](#installation)
 - [Usage](#usage)
   - [Submitting a Project](#submitting-a-project)
-  - [Browsing Projects](#browsing-projects)
+  - [Becoming a Potential Partner](#becoming-a-potential-partner)
   - [Admin Dashboard](#admin-dashboard)
 - [Contributing](#contributing)
 - [License](#license)
@@ -41,17 +41,19 @@ This section explains how to use different aspects of the SM DEVIS project.
 2. Fill out the project details, including the type of service needed and contact information.
 3. Submit the form.
 
-### Browsing Projects
+### Becoming a Potential Partner
 
-1. Service providers can browse available projects by visiting `http://localhost:8000/form`.
-2. View the list of projects and their details.
-3. Contact the project requester through provided contact information.
+1. Potential partners can apply by visiting `http://localhost:8000/form`.
+2. Fill out the partner application form.
+3. Wait for admin approval.
+4. Once approved, you will receive access to the dashboard.
 
 ### Admin Dashboard
 
 1. Admins can access the admin dashboard at `http://localhost:8000/dashboard`.
-2. Approve or deny potential partner subscriptions.
-3. Manage the overall platform and ensure its quality.
+2. Review partner applications and approve/deny them.
+3. Monitor and manage the platform's quality.
+4. Partners with approved subscriptions can log in to the dashboard to view project submissions.
 
 ## Contributing
 
